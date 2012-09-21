@@ -46,15 +46,17 @@
                 entities = Array(
                                     new EntitiesCas("Test", 
                                     Array(
-                                        new Attribut("href", "www.google.com"),
-                                        new Attribut("style", "style:none;color:black;")
+                                        new Attribut("href", "http://www.google.com"),
+                                        new Attribut("style", "color:green;")
                                     ),"Id" )
                                 );
                 for(var i=0;i<entities.length;i++)
                 {                        
                     var attrs = entities[i].Attributs;
-                    document.getElementById(entities[i].Name).setAttribute(attrs[0].Id, attrs[0].Value);
-                    document.getElementById(entities[i].Name).setAttribute(attrs[1].Id, attrs[1].Value);
+                    for(var j=0;j<attrs;j++)
+                        {
+                            document.getElementById(entities[i].Name).setAttribute(attrs[j].Id, attrs[j].Value);
+                        }
                 }
             }
             function Parser(contenu) // parse la balise cas
@@ -88,7 +90,7 @@
              .Test
              {
                 href : wwww.google.com;
-                style: background-color:#FFFFF;
+                style: background-color:green;
              }
              #titi
              {
