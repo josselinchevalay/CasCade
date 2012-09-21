@@ -37,7 +37,7 @@
             EntitiesCas = function(name,attributs,type)
            {
                 this.Name = name;
-               this.Attributs = attributs;
+                this.Attributs = attributs;
                 this.Type = type;
                
             }
@@ -53,11 +53,12 @@
                 for(var i=0;i<entities.length;i++)
                 {                        
                     var attrs = entities[i].Attributs;
-                    for(var j=0;j<attrs;j++)
-                        {
-                            document.getElementById(entities[i].Name).setAttribute(attrs[j].Id, attrs[j].Value);
-                        }
-                }
+                    for(var j=0;j<attrs.length;j++)
+                    {
+                        document.getElementById(entities[i].Name).setAttribute(attrs [j].Id, attrs [j].Value);
+                    }
+                }             
+        
             }
             function Parser(contenu) // parse la balise cas
             {
