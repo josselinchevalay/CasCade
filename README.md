@@ -1,0 +1,4 @@
+CasCade
+=======
+
+From after work Tab Atkins Jr, a Google representative within the W3C. I decided to see if it was feasible and effective. For my part for the moment this is only a test.  Case is a new language that is based a concept of HTML attributes. for the moment there is a index.html page that contains everything.  Missing the big parties: - An organization of files ^ ^ it's a mess right now. - A Parser text. - A community.  - The existing code works except for the parser. - The code under open source license.  explanation of CAS: - The language is based on the syntax and strucutre css - Properties are possible html tag attributes.  objective: - Knowing that structrue is similar to the css should create or find an equivalent parser
