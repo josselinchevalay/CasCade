@@ -1,5 +1,5 @@
--<!DOCTYPE html>
--<!-- 
+<!DOCTYPE html>
+<!-- 
 -Copyright (c) 2012 Josselin Chevalay, http://josselinchevalay.wordpress.com 
 -
 -Permission is hereby granted, free of charge, to any person obtaining
@@ -23,85 +23,85 @@
 -
 -
 --->
--<html>
--    <head>
--        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
--        <title></title>
--        <script type="text/javascript">
--            Attribut = function (id, value)
--            {
--              this.Id = id;
--              this.Value = value;
--              
--            };
--            EntitiesCas = function(name,attributs,type)
--            {
--                this.Name = name;
--                this.Attributs = attributs;
--                this.Type = type;
--               
--            }
--            function CasInjector()
--            {
--                entities = Array(
--                                    new EntitiesCas("Test", 
--                                    Array(
--                                        new Attribut("href", "www.google.com"),
--                                        new Attribut("style", "style:none;color:black;")
--                                    ),"Id" )
--                                );
--                for(var i=0;i<entities.length;i++)
--                {                        
--                    var attrs = entities[i].Attributs;
--                    document.getElementById(entities[i].Name).setAttribute(attrs[0].Id, attrs[0].Value);
--                    document.getElementById(entities[i].Name).setAttribute(attrs[1].Id, attrs[1].Value);
--                }
--            }
--            function Parser(contenu) // parse la balise cas
--            {
--                
--                var reg = /^\.|#+[a-z][A-Z]\{/;
--                tabParsing = contenu.innerHTML.split(reg);
--                
--                return tabParsing;
--            }
--            function getContenu(balise) // fonction qui recupere les contenu des balises
--            {
--               
--               if(balise.getAttribute('type')=="text/cas")
--               {
--                   var object = Parser(balise);
--                   alert(object);
--               }
--            }
--            function onListen() // function qui recupere les balise script
--            {
--              var listBalises =  document.getElementsByTagName('script');             
--                for(var i=0; i<listBalises.length; i++){                       
--                        getContenu(listBalises[i]);
--                }
--            } 
--            
--            
--        </script>
--         <script type="text/cas">
--             .Test
--             {
--                href : wwww.google.com;
--                style: background-color:#FFFFF;
--             }
--             #titi
--             {
--                metadata : prout;
--             }
--             
--         </script>
--    </head>
--    <body onload="CasInjector();"> 
--       
--        
--        <a id="Test">toto</a>
--        
--        
--    </body>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title></title>
+        <script type="text/javascript">
+          Attribut = function (id, value)
+          {
+              this.Id = id;
+              this.Value = value;
+              
+            };
+            EntitiesCas = function(name,attributs,type)
+           {
+                this.Name = name;
+               this.Attributs = attributs;
+                this.Type = type;
+               
+            }
+            function CasInjector()
+            {
+                entities = Array(
+                                    new EntitiesCas("Test", 
+                                    Array(
+                                        new Attribut("href", "www.google.com"),
+                                        new Attribut("style", "style:none;color:black;")
+                                    ),"Id" )
+                                );
+                for(var i=0;i<entities.length;i++)
+                {                        
+                    var attrs = entities[i].Attributs;
+                    document.getElementById(entities[i].Name).setAttribute(attrs[0].Id, attrs[0].Value);
+                    document.getElementById(entities[i].Name).setAttribute(attrs[1].Id, attrs[1].Value);
+                }
+            }
+            function Parser(contenu) // parse la balise cas
+            {
+                
+                var reg = /^\.|#+[a-z][A-Z]\{/;
+                tabParsing = contenu.innerHTML.split(reg);
+                
+                return tabParsing;
+            }
+            function getContenu(balise) // fonction qui recupere les contenu des balises
+            {
+               
+               if(balise.getAttribute('type')=="text/cas")
+               {
+                   var object = Parser(balise);
+                   alert(object);
+               }
+            }
+            function onListen() // function qui recupere les balise script
+            {
+              var listBalises =  document.getElementsByTagName('script');             
+                for(var i=0; i<listBalises.length; i++){                       
+                        getContenu(listBalises[i]);
+                }
+            } 
+            
+            
+        </script>
+         <script type="text/cas">
+             .Test
+             {
+                href : wwww.google.com;
+                style: background-color:#FFFFF;
+             }
+             #titi
+             {
+                metadata : prout;
+             }
+             
+         </script>
+    </head>
+    <body onload="CasInjector();"> 
+       
+        
+        <a id="Test">toto</a>
+        
+        
+    </body>
 </html>
