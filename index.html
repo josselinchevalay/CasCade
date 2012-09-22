@@ -47,7 +47,8 @@
                                     new EntitiesCas("Test", 
                                     Array(
                                         new Attribut("href", "http://www.google.com"),
-                                        new Attribut("style", "color:green;")
+                                        new Attribut("style", "color:green;"),
+                                        new Attribut("onClick", "alert('toto');")
                                     ),"Id" )
                                 );
                 for(var i=0;i<entities.length;i++)
@@ -60,13 +61,24 @@
                 }             
         
             }
-            function Parser(contenu) // parse la balise cas
+            function trim(str)
+            {
+               str.replace(/[\r\n|\r|\n]/g,"");
+               return str.replace(/ /g,"");
+               
+            }
+            function strBefore(str, str)
             {
                 
-                var reg = /^\.|#+[a-z][A-Z]\{/;
-                tabParsing = contenu.innerHTML.split(reg);
+            }
+            function Parser(contenu) // parse la balise cas
+            {           
                 
-                return tabParsing;
+                var chaine = contenu.innerHTML;
+                alert(trim(chaine));
+                
+                
+                //return tabParsing;
             }
             function getContenu(balise) // fonction qui recupere les contenu des balises
             {
@@ -74,7 +86,7 @@
                if(balise.getAttribute('type')=="text/cas")
                {
                    var object = Parser(balise);
-                   alert(object);
+                   
                }
             }
             function onListen() // function qui recupere les balise script
@@ -90,8 +102,9 @@
          <script type="text/cas">
              .Test
              {
-                href : wwww.google.com;
-                style: background-color:green;
+                href : 'wwww.google.com';
+                style: 'background-color:green;';
+                onClick: 'alert('toto');';
              }
              #titi
              {
@@ -100,7 +113,7 @@
              
          </script>
     </head>
-    <body onload="CasInjector();"> 
+    <body onload="onListen();"> 
        
         
         <a id="Test">toto</a>
