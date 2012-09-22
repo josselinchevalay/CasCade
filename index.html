@@ -67,16 +67,44 @@
                return str.replace(/ /g,"");
                
             }
-            function strBefore(str, str)
+            function strBefore(str, str2)
             {
-                
+                return str.substring(0, str.indexOf(str2, str));
             }
             function Parser(contenu) // parse la balise cas
             {           
                 
                 var chaine = contenu.innerHTML;
-                alert(trim(chaine));
+                alert(strBefore(chaine, "{"));
+                // efface
+                chaine = chaine.substring(chaine.indexOf("{", chaine)+1, chaine.length);
+                // trouve les attributs = > ID
+               while (chaine.length>=1)
+               {
+                var end = false;
                 
+                
+                     while(!end)
+                      {
+                         alert(strBefore(chaine, ":"));
+                         chaine = chaine.substring(chaine.indexOf(":", chaine)+1, chaine.length);
+                         alert(strBefore(chaine, "§"));
+                         chaine = chaine.substring(chaine.indexOf("§", chaine)+1, chaine.length);
+                         alert(chaine);
+                         var x = chaine.charAt(0);
+                         alert(x);
+                          if(x=="}")
+                             {
+                                 end = true;
+                                 alert('toto');
+                             }
+                        
+                       }
+                       
+                       chaine = chaine.substring(0, chaine.length);
+                       alert(chaine.length);
+                }      
+                         
                 
                 //return tabParsing;
             }
@@ -102,9 +130,9 @@
          <script type="text/cas">
              .Test
              {
-                href : 'wwww.google.com';
-                style: 'background-color:green;';
-                onClick: 'alert('toto');';
+                href : 'wwww.google.com'§
+                style: 'background-color:green'§
+                onClick: 'alert('toto');'§
              }
              #titi
              {
