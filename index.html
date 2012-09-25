@@ -41,72 +41,100 @@
                 this.Type = type;
                
             }
-            function CasInjector()
+            function CasInjector(tabEntityCas)
             {
-                entities = Array(
-                                    new EntitiesCas("Test", 
-                                    Array(
-                                        new Attribut("href", "http://www.google.com"),
-                                        new Attribut("style", "color:green;"),
-                                        new Attribut("onClick", "alert('toto');")
-                                    ),"Id" )
-                                );
-                for(var i=0;i<entities.length;i++)
+                
+                for(var i=0;i<tabEntityCas.length;i++)
                 {                        
-                    var attrs = entities[i].Attributs;
+                    var attrs = tabEntityCas[i].Attributs;
                     for(var j=0;j<attrs.length;j++)
                     {
-                        document.getElementById(entities[i].Name).setAttribute(attrs [j].Id, attrs [j].Value);
+                        document.getElementById(tabEntityCas[i].Name).setAttribute(attrs [j].Id, attrs [j].Value);
                     }
                 }             
         
             }
             function trim(str)
             {
-               str.replace(/[\r\n|\r|\n]/g,"");
-               return str.replace(/ /g,"");
+               chaine = "";
+               for(var i= 0; i<str.length;i++)
+                   {
+                       if(str.charCodeAt(i)==10)
+                           {                               
+                               chaine = chaine + "";
+                           }
+                           else
+                           {
+                                chaine = chaine + str.substring(i, i+1);
+                           }
+                   }
+               return chaine.replace(/ /g,"");
                
             }
             function strBefore(str, str2)
             {
                 return str.substring(0, str.indexOf(str2, str));
             }
+            function getType(str) // retourne le type EntityCas
+            {
+                if(str.match(/^\./))
+                    {return "id";}
+                else if(str.match(/^#/))
+                    {return "class";}
+                else if (str.match(/^[a-z]|[A-Z]/))
+                    {return "balise";}
+                     
+            }
+            function getName(str) // Retourne le nom de l'entitycas
+            {
+                if(getType(str)=="id")
+                    {return str.substring(1, str.length);}
+                else if (getType(str)=="class")
+                {return str.substring(1, str.length);}
+                else if (getType(str)=="balise")
+                    {return str;}
+            }
+            // parser debuggé reste plus qu'a mettre dans objet ^^ 
+            // je tiens a remercier Charly lesieur pour ça contribution 
+            // sur le parser
+            // Bug -> Values dois être parser 
             function Parser(contenu) // parse la balise cas
             {           
                 
-                var chaine = contenu.innerHTML;
-                alert(strBefore(chaine, "{"));
-                // efface
-                chaine = chaine.substring(chaine.indexOf("{", chaine)+1, chaine.length);
-                // trouve les attributs = > ID
+               var chaine = contenu.innerHTML;
+               chaine = trim(chaine); 
+               var tabEntityCas = Array();
                while (chaine.length>=1)
                {
-                var end = false;
-                
-                
+                var end = false; 
+                var tempType = getType(strBefore(chaine, "{"));
+                var tempName = getName(strBefore(chaine, "{"));             
+                chaine = chaine.substring(chaine.indexOf("{", chaine)+1, chaine.length);
+                var tempAttributs = Array();
                      while(!end)
                       {
-                         alert(strBefore(chaine, ":"));
+                         var tempId = strBefore(chaine, ":");                         
                          chaine = chaine.substring(chaine.indexOf(":", chaine)+1, chaine.length);
-                         alert(strBefore(chaine, "§"));
+                         var tempValue= strBefore(chaine, "§");
                          chaine = chaine.substring(chaine.indexOf("§", chaine)+1, chaine.length);
-                         alert(chaine);
-                         var x = chaine.charAt(0);
-                         alert(x);
-                          if(x=="}")
+                         var tempAttribut = new Attribut(tempId, tempValue);
+                         tempAttributs.push(tempAttribut);
+                         var x = chaine.charAt(0); 
+                             if(x=='}')
                              {
-                                 end = true;
-                                 alert('toto');
-                             }
-                        
+                                 end = true;                                  
+                             }                            
                        }
                        
-                       chaine = chaine.substring(0, chaine.length);
-                       alert(chaine.length);
-                }      
+                       chaine = chaine.substring(chaine.indexOf("}", chaine)+1, chaine.length);
+                       //alert(chaine);
+                      // alert(chaine.length);
+                      var tempEntityCas = new EntitiesCas(tempName, tempAttributs, tempType);
+                      tabEntityCas.push(tempEntityCas);
+                }    
                          
                 
-                //return tabParsing;
+                return tabEntityCas;
             }
             function getContenu(balise) // fonction qui recupere les contenu des balises
             {
@@ -114,7 +142,7 @@
                if(balise.getAttribute('type')=="text/cas")
                {
                    var object = Parser(balise);
-                   
+                   CasInjector(object);                                   
                }
             }
             function onListen() // function qui recupere les balise script
@@ -130,13 +158,13 @@
          <script type="text/cas">
              .Test
              {
-                href : 'wwww.google.com'§
-                style: 'background-color:green'§
-                onClick: 'alert('toto');'§
+                href : wwww.google.com§
+                style: color:green;§
+                onClick: alert('toto');§
              }
              #titi
              {
-                metadata : prout;
+                metadata : prout§
              }
              
          </script>
