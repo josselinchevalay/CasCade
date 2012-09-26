@@ -9,20 +9,28 @@
          <script type="text/cas">
              .Test
              {
-                href : http://wwww.google.com§
+                href : https://www.google.fr/webhp?hl=fr&tab=ww§
                 style: color:green;§
                 onClick: alert('toto');§
              }
+             a
+             {
+                href : https://www.google.fr/webhp?hl=fr&tab=ww§
+                style: color:green;§
+                onClick: alert('titi');§
+             }
              #titi
              {
-                metadata : prout§
+                href : https://www.google.fr/webhp?hl=fr&tab=ww§
+                style: color:red;§
+                onClick: alert('titi');§
              }
          </script>
     </head>
     <body onload="onListen();"> 
        
         
-        <a id="Test">toto</a>
+        <a id="Test">toto</a><a class="titi">toto</a><a class="titi">toto</a><a class="titi">toto</a><a id="Test">toto</a>
         
         
     </body>

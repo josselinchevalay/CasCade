@@ -36,16 +36,69 @@ Attribut = function (id, value)
                 this.Type = type;
                
             }
+            function getElementsByClass(className) { // permet de recuperer un tableau d'élements
+            var arr = new Array();
+            var elems = document.getElementsByTagName("*" );
+            for(var i = 0; i < elems.length; i++) {
+                var elem = elems[i];                
+                var cls = elem.className;// normalement on devrait mettre elem.getAttribute("class" ); mais IE supporte pas
+                if(cls == className) {
+                arr[arr.length] = elem;
+                }
+            }
+            return arr;
+            }
+            function baliseInjection(entity) // gère l'injection pour les balises
+            {
+                var tabTag = document.all.tags(entity.Name);
+                var attrs = entity.Attributs;
+                for(var i=0;i<tabTag.length;i++)
+                    {
+                        for(var j=0;j<attrs.length;j++)
+                            {
+                                tabTag[i].setAttribute(attrs[j].Id, attrs[j].Value);
+                            }
+                    }
+            }
+            function classInjection(entity) // gère l'injection pour les classes
+            {
+                var tabClass=getElementsByClass(entity.Name);
+                var attrs = entity.Attributs;
+                for(var i=0;i<tabClass.length;i++)
+                    {
+                        for(var j=0;j<attrs.length;j++)
+                            {
+                                tabClass[i].setAttribute(attrs[j].Id, attrs[j].Value);
+                            }
+                    }
+            }
+            function idInjection(entity) // gère l'injection pour les identifiants
+            {
+               
+                var attrs = entity.Attributs;
+                for(var j=0;j<attrs.length;j++)
+                {
+                    document.getElementById(entity.Name).setAttribute(attrs[j].Id, attrs[j].Value);
+                } 
+            }
             function CasInjector(tabEntityCas)
             {
                 
                 for(var i=0;i<tabEntityCas.length;i++)
-                {                        
-                    var attrs = tabEntityCas[i].Attributs;
-                    for(var j=0;j<attrs.length;j++)
-                    {
-                        document.getElementById(tabEntityCas[i].Name).setAttribute(attrs [j].Id, attrs [j].Value);
-                    }
+                {     
+                    
+                    if(tabEntityCas[i].Type=="id")
+                        {
+                            idInjection(tabEntityCas[i]);
+                        }
+                        else if (tabEntityCas[i].Type=="balise")
+                            {
+                                baliseInjection(tabEntityCas[i]);
+                            }
+                            else if(tabEntityCas[i].Type=="class")
+                                {
+                                    classInjection(tabEntityCas[i]);
+                                }
                 }             
         
             }
@@ -136,8 +189,11 @@ Attribut = function (id, value)
                
                if(balise.getAttribute('type')=="text/cas")
                {
-                   var object = Parser(balise);
-                   CasInjector(object);                                   
+                   if(balise.innerHTML!="")
+                   {
+                    var object = Parser(balise);
+                    CasInjector(object); 
+                   }                                                    
                }
             }
             function onListen() // function qui recupere les balise script
