@@ -126,9 +126,9 @@ Attribut = function (id, value)
             function getType(str) // retourne le type EntityCas
             {
                 if(str.match(/^\./))
-                    {return "id";}
-                else if(str.match(/^#/))
                     {return "class";}
+                else if(str.match(/^#/))
+                    {return "id";}
                 else if (str.match(/^[a-z]|[A-Z]/))
                     {return "balise";}
                      
