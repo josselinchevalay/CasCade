@@ -78,6 +78,7 @@ Attribut = function (id, value)
                 var attrs = entity.Attributs;
                 for(var j=0;j<attrs.length;j++)
                 {
+                    if(document.getElementById(entity.Name)!=null)
                     document.getElementById(entity.Name).setAttribute(attrs[j].Id, attrs[j].Value);
                 } 
             }
