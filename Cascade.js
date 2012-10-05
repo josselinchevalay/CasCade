@@ -82,7 +82,7 @@ Attribut = function (id, value)
                     document.getElementById(entity.Name).setAttribute(attrs[j].Id, attrs[j].Value);
                 } 
             }
-            function CasInjector(tabEntityCas)
+            function CasInjector(tabEntityCas) // injecte le code dans le body
             {
                 
                 for(var i=0;i<tabEntityCas.length;i++)
@@ -103,7 +103,7 @@ Attribut = function (id, value)
                 }             
         
             }
-            function trim(str)
+            function trim(str) // supprime les espaces
             {
                chaine = "";
                for(var i= 0; i<str.length;i++)
@@ -120,7 +120,7 @@ Attribut = function (id, value)
                return chaine.replace(/ /g,"");
                
             }
-            function strBefore(str, str2)
+            function strBefore(str, str2) // retrouve la chaine après le string spécifier
             {
                 return str.substring(0, str.indexOf(str2, str));
             }
@@ -145,8 +145,7 @@ Attribut = function (id, value)
             }
             // parser debuggé reste plus qu'a mettre dans objet ^^ 
             // je tiens a remercier Charly lesieur pour ça contribution 
-            // sur le parser
-            // Bug -> Values dois être parser 
+            // sur le parser            
             function Parser(contenu) // parse la balise cas
             {           
                 
